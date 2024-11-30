@@ -1,34 +1,18 @@
-/**
- *    CryptMail
- *
- *    Simple Javascript Email-Address crypter / uncrypter.
- *    (C) 2005 KLITSCHE.DE // DIRK ALBAN ADLER
- *    http://cryptmail.klitsche.org
- *
- *    CryptMail is published under the CC-GNU LGPL
- *    http://creativecommons.org/licenses/LGPL/2.1/
- *
- *    It is provided as is. No warrenties. No support.
- */
-function mailto(s) {
-    document.location.href = "mailto:" + unCryptMail(s);
+document.addEventListener('DOMContentLoaded', function () {
+  const kontakt = document.getElementById('kontakt')
+  kontakt.addEventListener('click', function () {
+    mailto(kontakt.dataset.mail)
+  })
+})
+
+function mailto (r) {
+  document.location.href = 'mailto:' + blob(r, -1)
 }
 
-function unCryptMail(r) {
-    r = unescape(r);
-    var l = r.length;
-    var o = "";
-    for (i = 0; i < l; i++) {
-        o += String.fromCharCode (r.charCodeAt (i) - 1);
-    }
-    return o;
-}
-
-function cryptMail(r) {
-    var l = r.length;
-    var o = "";
-    for (i = 0; i < l; i++) {
-        o += String.fromCharCode (r.charCodeAt (i) + 1);
-    }
-    return escape(o);
+function blob (r, d) {
+  let o = ''
+  for (let c of decodeURI(r)) {
+    o += String.fromCharCode(c.charCodeAt(0) + d)
+  }
+  return o
 }
